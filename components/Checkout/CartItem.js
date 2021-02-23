@@ -33,7 +33,7 @@ export default function CartItem({
                                 {color}
                             </Color>
                             <Price>
-                                ${(price * quantity).toFixed(2)}
+                                ${(price * Quantity).toFixed(2)}
                             </Price>
                             <Select value={Quantity} onChange={(e)=>handleChange(e)}>
                                 <Option value={1}>

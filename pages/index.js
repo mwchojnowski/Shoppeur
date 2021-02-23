@@ -45,6 +45,12 @@ export default function home() {
       img: "https://i.ibb.co/ZMSS7kY/02182021-HB6.png",
       url: "/category?type=HomeImprovement",
     },
+    {
+      name: "huge savings",
+      description: "On Fresh Inventory",
+      img: "//ak1.ostkcdn.com/img/mxc/02222021-HB6v3.png",
+      url: "/category?type=Bed & Bath",
+    }
   ];
   let grid1 = [AllProducts[2], AllProducts[10], AllProducts[15]];
   let grid2 = [AllProducts[18], AllProducts[19], AllProducts[20]];
@@ -67,17 +73,17 @@ export default function home() {
           data={product1}
         />
         <JumboSaleDisplay
-          img="https://ak1.ostkcdn.com/img/mxc/shop_by_style_hero_desktop_041619.jpg"
+          img="https://ak1.ostkcdn.com/img/mxc/20200201-Living-Desktop-BKG.jpg"
           url="/category?type=BedNBath"
-          title="Bed N Bath"
+          title="Home decor"
           text="Limited time deals"
         />
         <CategoryGrid type={"SHOPNOW"} data={grid1} />
         <JumboSaleDisplay
-          img="https://ak1.ostkcdn.com/img/mxc/021521-RugsPromo-Desktop.jpg"
+          img="https://i.ibb.co/zX5km9T/021521-Rugs-Promo-Desktop.jpg"
           url="/category?type=Rugs"
-          title="rug refresh"
-          text="out with the old - in with the savings"
+          title="Rug Refresh"
+          text="Out with the old - in with the savings"
         />
         <CategoryGrid type={"SHOPNOW"} data={grid2} />
         <CategoryGrid type={"SALE"} />

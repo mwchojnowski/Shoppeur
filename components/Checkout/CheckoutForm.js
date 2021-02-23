@@ -1,6 +1,5 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage,useFormik } from 'formik';
-import * as yup from 'yup';
 import styled from 'styled-components';
 import swal from 'sweetalert'
 import { useRouter } from 'next/router'
@@ -30,6 +29,8 @@ export default function CheckoutForm(){
             errors.zip = 'Required';
         else if(values.zip.length < 5)
             errors.zip = 'Must be as least 5 digits';
+        else if(isNaN(values.zip))
+            errors.zip = 'Input must only contain numbers'
 
         if(!values.city)
             errors.city = 'Required';
@@ -38,29 +39,18 @@ export default function CheckoutForm(){
             errors.CC = 'Required';
         else if(values.CC.length != 16)
             errors.CC = 'Card number must be 16 digits long'
+        else if(isNaN(values.CC))
+            errors.CC = 'Code must only container numbers'
 
         if(!values.CVV)
             errors.CVV = 'Required';
         else if(values.CVV.length != 3)
             errors.CVV = 'Security Code must be 3 digits long'
+        else if(isNaN(values.CVV))
+            errors.CVV = 'Code must only container numbers'
         
         return errors;
     }
-
-    const SignupSchema = yup.object().shape({
-        email: yup.string().email('Invalid email').required('Required'),
-        first_name:yup.string().min(2,'Too Short').max(50, 'Too Long').required('Required'),
-        last_name:yup.string().min(2,'Too Short').max(50, 'Too Long').required('Required'),
-        address:yup.string().min(5,'Too Short').max(60, 'Too Long').required('Required'),
-        country: yup.string().min(2,'Too Short').max(60, 'Too Long').required('Required'),
-        zip:yup.string().min(5,'Too Short').max(5, 'Too Long').required('Required'),
-        city:yup.string().min(2,'Too Short').max(60, 'Too Long').required('Required'),
-        state:'',
-        CC:yup.string().min(16,'Too Short').max(16, 'Too Long').required('Required'),
-        CVV:yup.string().min(3,'Too Short').max(3, 'Too Long').required('Required'),
-        month:'',
-        year:'',
-    })
 
     const initialValues = {
         email: '',
@@ -86,28 +76,25 @@ export default function CheckoutForm(){
 
     function checkSubmission(){
         if(
-            formik.values.email.touched==true ||
-            formik.values.first_name.touched==true ||
-            formik.values.last_name.touched==true ||
-            formik.values.address.touched==true ||
-            formik.values.zip.touched==true ||
-            formik.values.city.touched==true ||
-            formik.values.CC.touched==true ||
-            formik.values.CVV.touched==true 
+            parseFloat(formik.values.email.length)>1 &&
+            parseFloat(formik.values.first_name.length)>1 &&
+            parseFloat(formik.values.last_name.length)>1 &&
+            parseFloat(formik.values.address.length)>1 &&
+            parseFloat(formik.values.zip.length)>4 &&
+            parseFloat(formik.values.city.length)>1 &&
+            parseFloat(formik.values.CC.length)>15 &&
+            parseFloat(formik.values.CVV.length)>2 
         )
             {
-                return false
+                return true
             }
-        else return true
+        else return false
     }
 
     return (
         <Wrapper>
-            <Checkout_Form id="my-form" onSubmit={
-                checkSubmission(),
-                (e)=>{
+            <Checkout_Form id="my-form" onSubmit={(e)=>{
                 e.preventDefault()
-                
                 if(checkSubmission()){
                     formik.resetForm(initialValues)
                     swal({
@@ -115,9 +102,9 @@ export default function CheckoutForm(){
                         title: "Successful Purchase",
                         text: "Thank You For Shopping",
                     }).then( x => {
+                        console.log(checkSubmission())
                         router.push("/")
                     })
-                    
                 }
             }}>
                 <ButtonWrap>
@@ -303,34 +290,36 @@ export default function CheckoutForm(){
                     </Label>
                 </Row>
                 <Row>
-                    <Input__Title__CardNum>
-                        Card Number
-                    </Input__Title__CardNum>
-                    <Input__Title__CVV>
-                        CVV
-                    </Input__Title__CVV>
-                </Row>
-                <Row>
-                    <Input__CardNum
-                            type="text"
-                            name="CC"
-                            id="CC"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.CC}
-                            enableReinitialize={true}
-                        />
-                        {(formik.errors.CC && formik.touched.CC) ? <ErrorDiv__CreditCard>{formik.errors.CC}</ErrorDiv__CreditCard> : null}
-                    <Input__CVV
-                            type="text"
-                            name="CVV"
-                            id="CVV"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                        value={formik.values.CVV}
-                        enableReinitialize={true}
-                        />
-                        {(formik.errors.CVV && formik.touched.CVV) ? <ErrorDiv__CVV>{formik.errors.CVV}</ErrorDiv__CVV> : null}
+                    <RowItemCC>
+                        <Input__Title__CardNum>
+                            Card Number
+                        </Input__Title__CardNum>
+                        <Input__CardNum
+                                type="text"
+                                name="CC"
+                                id="CC"
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                                value={formik.values.CC}
+                                enableReinitialize={true}
+                            />
+                        {(formik.errors.CC && formik.touched.CC) ? <CardError>{formik.errors.CC}</CardError> : null}
+                    </RowItemCC>
+                    <RowItemCVV>
+                        <Input__Title__CVV>
+                            CVV
+                        </Input__Title__CVV>
+                        <Input__CVV
+                                type="text"
+                                name="CVV"
+                                id="CVV"
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                                value={formik.values.CVV}
+                                enableReinitialize={true}
+                            />
+                        {(formik.errors.CVV && formik.touched.CVV) ? <CardError>{formik.errors.CVV}</CardError> : null}
+                    </RowItemCVV>
                 </Row>
                 <Row>
                     <Date>
@@ -558,20 +547,27 @@ const Label = styled.label`
 const ImageDiv = styled.div`
 
 `;
+const RowItemCC = styled.div`
+    width:60%;
+    display:flex;
+    flex-direction:column;
+    margin-left:23px;
+`;
+
+const RowItemCVV = styled.div`
+    width:40%;
+    display:flex;
+    flex-direction:column;
+`;
 const Input__Title__CardNum = styled.h2`
-    width:32%;
     font-family: Helvetica,Arial,sans-serif;
     font-weight:600;
     font-size:12px;
     padding-bottom:5px;
     margin-top:20px;
-    margin-left:23px;
-    @media (max-width:500px){
-        width:55%;
-    }
 `;
 const Input__CardNum = styled.input`
-    width:30%;
+    width:90%;
     padding: 7px 15px;
     background: #fff;
     color: #7b7b7b;
@@ -581,26 +577,18 @@ const Input__CardNum = styled.input`
     outline: 0;
     font-size: 13px;
     vertical-align: bottom;
-    margin-bottom:20px;
-    margin-left:23px;
-    @media (max-width:500px){
-        width:50%;
-    }
+    margin-bottom:5px;
+    
 `;
 const Input__Title__CVV = styled.h2`
-    width:15%;
     font-family: Helvetica,Arial,sans-serif;
     font-weight:600;
     font-size:12px;
     padding-bottom:5px;
     margin-top:20px;
-    @media (max-width:500px){
-        width:25%;
-        
-    }
 `;
 const Input__CVV = styled.input`
-    width:15%;
+    width:25%;
     padding: 7px 15px;
     background: #fff;
     color: #7b7b7b;
@@ -610,11 +598,13 @@ const Input__CVV = styled.input`
     outline: 0;
     font-size: 13px;
     vertical-align: bottom;
-    margin-left:10px;
-    margin-bottom:20px;
-    @media (max-width:500px){
-        width:25%;
-    }
+    margin-bottom:5px;
+`;
+const CardError = styled.div`
+    margin-bottom:10px;
+    color: red;
+    font-family:helvetica;
+    font-weight:400;
 `;
 const DateSelect = styled.select`
     width:20%;
@@ -652,8 +642,8 @@ const ButtonWrap = styled.div`
     align-items:center;
     @media (min-width:1200px){
         position:absolute;
-        margin-left:22.5%;
-        width:50%;
+        margin-left:13.5%;
+        width:35%;
     }
     @media (max-width:1200px){
         margin:50px 0;
@@ -661,7 +651,7 @@ const ButtonWrap = styled.div`
 `;
 const Button = styled.button`
     width:25%;
-    background-color: #27865f;
+    background-color: red;
     color: #fff;
     font-size: 16px;
     border-radius: 4px;
@@ -675,13 +665,14 @@ const Button = styled.button`
     justify-content:center;
     text-align:center;
     align-items:center;
-    font-weight:500;
+    font-weight:700;
+    letter-spacing:1px;
     @media (max-width:1200px){
         width:35%;
         height:45px;
     }
     @media (min-width:1200px){
-        margin-top:40px;
+        margin-top:35px;
     }
 `;
 const ErrorDiv = styled.div`
@@ -692,32 +683,6 @@ const ErrorDiv = styled.div`
     font-family:helvetica;
     margin-top:30px;
     font-weight:400;
-`;
-const ErrorDiv__CreditCard = styled.div`
-    width:150px;
-    position:absolute;
-    padding:3px;
-    color: red;
-    font-family:helvetica;
-    margin-top:30px;
-    margin-left:23px;
-    font-weight:400;
-`;
-const ErrorDiv__CVV = styled.div`
-    width:150px;
-    position:absolute;
-    padding:3px;
-    color: red;
-    font-family:helvetica;
-    margin-top:30px;
-    margin-left:15%;
-    font-weight:400;
-    @media (max-width:1200px){
-        margin-left:30%;
-    }
-    @media (max-width:500px){
-        margin-left:55%;
-    }
 `;
 const ErrorDiv__Last_Name = styled.div`
     width:150px;

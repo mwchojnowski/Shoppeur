@@ -50,9 +50,11 @@ export const Div = styled.div`
   flex-direction:column;
   
   position:absolute;
-  margin-bottom:360px;
+  margin-bottom:350px;
   //left:0px;
   margin-left:65px;
+  
+  padding-right:10px;
 `;
 
 const RedTitle = styled.h1`
@@ -63,6 +65,7 @@ const RedTitle = styled.h1`
   width:100%;
   text-align:left;
   padding-bottom:5px;
+  padding-top:10px;
 `;
 
 const Text = styled.h1`
@@ -73,7 +76,7 @@ const Text = styled.h1`
   color:#252525;
   width:100%;
   text-align:left;
-  padding-bottom:5px;
+  padding-bottom:10px;
 `;
 
 const ButtonDiv = styled.div`
