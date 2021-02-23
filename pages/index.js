@@ -69,11 +69,15 @@ export default function home() {
         <JumboSaleDisplay
           img="https://ak1.ostkcdn.com/img/mxc/shop_by_style_hero_desktop_041619.jpg"
           url="/category?type=BedNBath"
+          title="Bed N Bath"
+          text="Limited time deals"
         />
         <CategoryGrid type={"SHOPNOW"} data={grid1} />
         <JumboSaleDisplay
           img="https://ak1.ostkcdn.com/img/mxc/021521-RugsPromo-Desktop.jpg"
           url="/category?type=Rugs"
+          title="rug refresh"
+          text="out with the old - in with the savings"
         />
         <CategoryGrid type={"SHOPNOW"} data={grid2} />
         <CategoryGrid type={"SALE"} />

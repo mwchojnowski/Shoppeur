@@ -1,12 +1,14 @@
 import React from "react"
 import styled from "styled-components"
 import{AiOutlineLock} from "react-icons/ai"
+import { useRouter } from 'next/router'
 
 export default function CheckoutNav(){
+    const router = useRouter()
     return(
         <Wrapper>
             <Container>
-                <Logo>
+                <Logo onClick={()=>router.push("/")}>
                     Overstock
                 </Logo>
                 <Checkout>
@@ -47,6 +49,7 @@ const Logo = styled.div`
     font-size:32px;
     font-weight:400;
     padding:25px;
+    cursor:pointer;
 `;
 
 const Checkout = styled.div`

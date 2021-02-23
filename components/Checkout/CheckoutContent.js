@@ -2,6 +2,7 @@ import React,{useState,useEffect,} from "react"
 import styled from "styled-components"
 import CheckoutForm from "./CheckoutForm"
 import CartItem from "./CartItem"
+import swal from "sweetalert"
 
 export default function CheckoutContent(){
     const [NumItems,updateNumItems] = useState()

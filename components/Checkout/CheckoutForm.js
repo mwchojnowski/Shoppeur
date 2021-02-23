@@ -2,8 +2,12 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage,useFormik } from 'formik';
 import * as yup from 'yup';
 import styled from 'styled-components';
+import swal from 'sweetalert'
+import { useRouter } from 'next/router'
 
 export default function CheckoutForm(){
+    
+    const router = useRouter()
 
     const validate = (values) => {
         const errors = {};
@@ -42,6 +46,22 @@ export default function CheckoutForm(){
         
         return errors;
     }
+
+    const SignupSchema = yup.object().shape({
+        email: yup.string().email('Invalid email').required('Required'),
+        first_name:yup.string().min(2,'Too Short').max(50, 'Too Long').required('Required'),
+        last_name:yup.string().min(2,'Too Short').max(50, 'Too Long').required('Required'),
+        address:yup.string().min(5,'Too Short').max(60, 'Too Long').required('Required'),
+        country: yup.string().min(2,'Too Short').max(60, 'Too Long').required('Required'),
+        zip:yup.string().min(5,'Too Short').max(5, 'Too Long').required('Required'),
+        city:yup.string().min(2,'Too Short').max(60, 'Too Long').required('Required'),
+        state:'',
+        CC:yup.string().min(16,'Too Short').max(16, 'Too Long').required('Required'),
+        CVV:yup.string().min(3,'Too Short').max(3, 'Too Long').required('Required'),
+        month:'',
+        year:'',
+    })
+
     const initialValues = {
         email: '',
         first_name:'',
@@ -60,332 +80,361 @@ export default function CheckoutForm(){
         initialValues,
         validate,
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            checkSubmission()
           }
     });
+
+    function checkSubmission(){
+        if(
+            formik.values.email.touched==true ||
+            formik.values.first_name.touched==true ||
+            formik.values.last_name.touched==true ||
+            formik.values.address.touched==true ||
+            formik.values.zip.touched==true ||
+            formik.values.city.touched==true ||
+            formik.values.CC.touched==true ||
+            formik.values.CVV.touched==true 
+        )
+            {
+                return false
+            }
+        else return true
+    }
+
     return (
         <Wrapper>
-            <Formik>
-                <Checkout_Form id="my-form" onSubmit={()=>{
-                    alert("Successfully submitted")
+            <Checkout_Form id="my-form" onSubmit={
+                checkSubmission(),
+                (e)=>{
+                e.preventDefault()
+                
+                if(checkSubmission()){
                     formik.resetForm(initialValues)
-                }}>
-                    <ButtonWrap>
-                        <Button type="reset" onClick={()=>{
-                            formik.resetForm({
-                                values: {
-                                    email: 'johnsmith@email.com',
-                                    first_name:'John',
-                                    last_name:'Smith',
-                                    address: '123 Street St.',
-                                    country:'United States',
-                                    zip:'12345',
-                                    city:'City',
-                                    state:'New York',
-                                    CC:'1234567887654321',
-                                    CVV:'123',
-                                    month:'01',
-                                    year:'2021'
-                                }
-                            })
-                            }}>
-                            Autofill
-                        </Button>
-                    </ButtonWrap>
-                    <H1Div>
-                        <H1>
-                            Billing Address
-                        </H1>
-                    </H1Div>
-                    <Row>
-                        <Full>
-                            Email Address
-                        </Full>
-                    </Row>
-                    <Row>
-                        <Input__Full
-                            type="email"
-                            name="email"
-                            id="email"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
-                            enableReinitialize={true}
-                        />
-                        {(formik.errors.email && formik.touched.email) ? <ErrorDiv>{formik.errors.email}</ErrorDiv> : null}
-                    </Row>
-                    <Row>
-                        <H2>
-                            First Name
-                        </H2>
-                        <H2>
-                            Last Name
-                        </H2>
-                    </Row>
-                    <Row>
-                        <Input__Half
+                    swal({
+                        icon: "success",
+                        title: "Successful Purchase",
+                        text: "Thank You For Shopping",
+                    }).then( x => {
+                        router.push("/")
+                    })
+                    
+                }
+            }}>
+                <ButtonWrap>
+                    <Button type="reset" onClick={()=>{
+                        formik.resetForm({
+                            values: {
+                                email: 'johnsmith@email.com',
+                                first_name:'John',
+                                last_name:'Smith',
+                                address: '123 Street St.',
+                                country:'United States',
+                                zip:'12345',
+                                city:'City',
+                                state:'New York',
+                                CC:'1234567887654321',
+                                CVV:'123',
+                                month:'01',
+                                year:'2021'
+                            }
+                        })
+                        }}>
+                        Autofill
+                    </Button>
+                </ButtonWrap>
+                <H1Div>
+                    <H1>
+                        Billing Address
+                    </H1>
+                </H1Div>
+                <Row>
+                    <Full>
+                        Email Address
+                    </Full>
+                </Row>
+                <Row>
+                    <Input__Full
+                        type="email"
+                        name="email"
+                        id="email"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
+                        enableReinitialize={true}
+                    />
+                    {(formik.errors.email && formik.touched.email) ? <ErrorDiv>{formik.errors.email}</ErrorDiv> : null}
+                </Row>
+                <Row>
+                    <H2>
+                        First Name
+                    </H2>
+                    <H2>
+                        Last Name
+                    </H2>
+                </Row>
+                <Row>
+                    <Input__Half
+                        type="text"
+                        name="first_name"
+                        id="first_name"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={formik.values.first_name}
+                        enableReinitialize={true}
+                    />
+                    {(formik.errors.first_name && formik.touched.first_name) ? <ErrorDiv>{formik.errors.first_name}</ErrorDiv> : null}
+                    <Input__Half
+                        type="text"
+                        name="last_name"
+                        id="last_name"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={formik.values.last_name}
+                        enableReinitialize={true}
+                    />
+                        {(formik.errors.last_name && formik.touched.last_name) ? <ErrorDiv__Last_Name>{formik.errors.last_name}</ErrorDiv__Last_Name> : null}
+                </Row>
+                <Row>
+                    <Full>
+                        Address
+                    </Full>
+                </Row>
+                <Row>
+                    <Input__Full
+                        type="text"
+                        name="address"
+                        id="address"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={formik.values.address}
+                        enableReinitialize={true}
+                    />
+                    {(formik.errors.address && formik.touched.address) ? <ErrorDiv>{formik.errors.address}</ErrorDiv> : null}
+                </Row>
+                <Row>
+                    <H3>
+                        Country
+                    </H3>
+                    <H3>
+                        Zip Code
+                    </H3>
+                    <H3>
+                        City
+                    </H3>
+                    <H3>
+                        State
+                    </H3>
+                </Row>
+                <Row>
+                    <QSelect
+                        type="select"
+                        name="country"
+                        id="country"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={formik.values.country}
+                        enableReinitialize={true}
+                    >
+                        <Option>
+                            United States
+                        </Option>
+                    </QSelect>
+                    <Input__Quarter
+                        type="text"
+                        name="zip"
+                        id="zip"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={formik.values.zip}
+                        enableReinitialize={true}
+                    />
+                    {(formik.errors.zip && formik.touched.zip) ? <ErrorDiv__zip>{formik.errors.zip}</ErrorDiv__zip> : null}
+                    <Input__Quarter
+                        type="text"
+                        name="city"
+                        id="city"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={formik.values.city}
+                        enableReinitialize={true}
+                    />
+                    {(formik.errors.city && formik.touched.city) ? <ErrorDiv__city>{formik.errors.city}</ErrorDiv__city> : null}
+                    <QSelect
+                        type="select"
+                        name="state"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={formik.values.state}
+                        enableReinitialize={true}
+                    >
+                        <Option value="New York">
+                            New York
+                        </Option>
+                        <Option value="New Jersey">
+                            New Jersey
+                        </Option>
+                        <Option value="California">
+                            California
+                        </Option>
+                        <Option value="Pennsylvania">
+                            Pennsylvania
+                        </Option>
+                    </QSelect>
+                </Row>
+                <H1Div>
+                    <H1>
+                        Payment Information
+                    </H1>
+                </H1Div>
+                <Row>
+                    <Radio type="radio" id="card" defaultChecked value="card" name="payment"/>
+                    <Label >
+                        Credit/Debit Card
+                        <ImageDiv>
+                            <img src="https://i.ibb.co/XS6J4PM/20150901-visa.png"/>
+                            <img src="https://i.ibb.co/gVDTzSh/20150901-mc.png"/>
+                        </ImageDiv>
+                    </Label>
+                    <Radio type="radio" id="paypal" value="paypal" name="payment"/>
+                    <Label >
+                        <ImageDiv>
+                            <img src="https://i.ibb.co/DpnLXd2/20150901-paypal.png"/>
+                        </ImageDiv>
+                    </Label>
+                </Row>
+                <Row>
+                    <Input__Title__CardNum>
+                        Card Number
+                    </Input__Title__CardNum>
+                    <Input__Title__CVV>
+                        CVV
+                    </Input__Title__CVV>
+                </Row>
+                <Row>
+                    <Input__CardNum
                             type="text"
-                            name="first_name"
-                            id="first_name"
+                            name="CC"
+                            id="CC"
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
-                            value={formik.values.first_name}
+                            value={formik.values.CC}
                             enableReinitialize={true}
                         />
-                        {(formik.errors.first_name && formik.touched.first_name) ? <ErrorDiv>{formik.errors.first_name}</ErrorDiv> : null}
-                        <Input__Half
+                        {(formik.errors.CC && formik.touched.CC) ? <ErrorDiv__CreditCard>{formik.errors.CC}</ErrorDiv__CreditCard> : null}
+                    <Input__CVV
                             type="text"
-                            name="last_name"
-                            id="last_name"
+                            name="CVV"
+                            id="CVV"
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
-                            value={formik.values.last_name}
-                            enableReinitialize={true}
+                        value={formik.values.CVV}
+                        enableReinitialize={true}
                         />
-                         {(formik.errors.last_name && formik.touched.last_name) ? <ErrorDiv__Last_Name>{formik.errors.last_name}</ErrorDiv__Last_Name> : null}
-                    </Row>
-                    <Row>
-                        <Full>
-                            Address
-                        </Full>
-                    </Row>
-                    <Row>
-                        <Input__Full
-                            type="text"
-                            name="address"
-                            id="address"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.address}
-                            enableReinitialize={true}
-                        />
-                        {(formik.errors.address && formik.touched.address) ? <ErrorDiv>{formik.errors.address}</ErrorDiv> : null}
-                    </Row>
-                    <Row>
-                        <H3>
-                            Country
-                        </H3>
-                        <H3>
-                            Zip Code
-                        </H3>
-                        <H3>
-                            City
-                        </H3>
-                        <H3>
-                            State
-                        </H3>
-                    </Row>
-                    <Row>
-                        <QSelect
-                            type="select"
-                            name="country"
-                            id="country"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.country}
-                            enableReinitialize={true}
-                        >
-                            <Option>
-                                United States
-                            </Option>
-                        </QSelect>
-                        <Input__Quarter
-                            type="text"
-                            name="zip"
-                            id="zip"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.zip}
-                            enableReinitialize={true}
-                        />
-                        {(formik.errors.zip && formik.touched.zip) ? <ErrorDiv__zip>{formik.errors.zip}</ErrorDiv__zip> : null}
-                        <Input__Quarter
-                            type="text"
-                            name="city"
-                            id="city"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.city}
-                            enableReinitialize={true}
-                        />
-                        {(formik.errors.city && formik.touched.city) ? <ErrorDiv__city>{formik.errors.city}</ErrorDiv__city> : null}
-                        <QSelect
-                            type="select"
-                            name="state"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.state}
-                            enableReinitialize={true}
-                        >
-                            <Option value="New York">
-                                New York
-                            </Option>
-                            <Option value="New Jersey">
-                                New Jersey
-                            </Option>
-                            <Option value="California">
-                                California
-                            </Option>
-                            <Option value="Pennsylvania">
-                                Pennsylvania
-                            </Option>
-                        </QSelect>
-                    </Row>
-                    <H1Div>
-                        <H1>
-                            Payment Information
-                        </H1>
-                    </H1Div>
-                    <Row>
-                        <Radio type="radio" id="card" defaultChecked value="card" name="payment"/>
-                        <Label >
-                            Credit/Debit Card
-                            <ImageDiv>
-                                <img src="https://i.ibb.co/XS6J4PM/20150901-visa.png"/>
-                                <img src="https://i.ibb.co/gVDTzSh/20150901-mc.png"/>
-                            </ImageDiv>
-                        </Label>
-                        <Radio type="radio" id="paypal" value="paypal" name="payment"/>
-                        <Label >
-                            <ImageDiv>
-                                <img src="https://i.ibb.co/DpnLXd2/20150901-paypal.png"/>
-                            </ImageDiv>
-                        </Label>
-                    </Row>
-                    <Row>
-                        <Input__Title__CardNum>
-                            Card Number
-                        </Input__Title__CardNum>
-                        <Input__Title__CVV>
-                            CVV
-                        </Input__Title__CVV>
-                    </Row>
-                    <Row>
-                        <Input__CardNum
-                                type="text"
-                                name="CC"
-                                id="CC"
-                                onBlur={formik.handleBlur}
-                                onChange={formik.handleChange}
-                                value={formik.values.CC}
-                                enableReinitialize={true}
-                            />
-                            {(formik.errors.CC && formik.touched.CC) ? <ErrorDiv__CreditCard>{formik.errors.CC}</ErrorDiv__CreditCard> : null}
-                        <Input__CVV
-                                type="text"
-                                name="CVV"
-                                id="CVV"
-                                onBlur={formik.handleBlur}
-                                onChange={formik.handleChange}
-                            value={formik.values.CVV}
-                            enableReinitialize={true}
-                            />
-                            {(formik.errors.CVV && formik.touched.CVV) ? <ErrorDiv__CVV>{formik.errors.CVV}</ErrorDiv__CVV> : null}
-                    </Row>
-                    <Row>
-                        <Date>
-                            Expiration Date
-                        </Date>
-                    </Row>
-                    <Row>
-                        <DateSelect
-                            type="select"
-                            name="month"
-                            id="month"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.month}
-                            enableReinitialize={true}
-                        >
-                            <Option value="1">
-                                01 Jan
-                            </Option>
-                            <Option value="2">
-                                02 Feb
-                            </Option>
-                            <Option value="3">
-                                03 Mar
-                            </Option>
-                            <Option value="4">
-                                04 Apr
-                            </Option>
-                            <Option value="5">
-                                05 May
-                            </Option>
-                            <Option value="6">
-                                06 Jun
-                            </Option>
-                            <Option value="7">
-                                07 Jul
-                            </Option>
-                            <Option value="8">
-                                08 Aug
-                            </Option>
-                            <Option value="9">
-                                09 Sep
-                            </Option>
-                            <Option value="10">
-                                10 Oct
-                            </Option>
-                            <Option value="11">
-                                11 Nov
-                            </Option>
-                            <Option value="12">
-                                12 Dec
-                            </Option>
-                        </DateSelect>
-                        <DateSelect
-                            type="select"
-                            name="year"
-                            id="year"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.year}
-                            enableReinitialize={true}
-                        >
-                            <Option value="2021">
-                                2021
-                            </Option>
-                            <Option value="2022">
-                                2022
-                            </Option>
-                            <Option value="2023">
-                                2023
-                            </Option>
-                            <Option value="2024">
-                                2024
-                            </Option>
-                            <Option value="2025">
-                                2025
-                            </Option>
-                            <Option value="2026">
-                                2026
-                            </Option>
-                            <Option value="2027">
-                                2027
-                            </Option>
-                            <Option value="2028">
-                                2028
-                            </Option>
-                            <Option value="2029">
-                                2029
-                            </Option>
-                            <Option value="2030">
-                                2030
-                            </Option>
-                            <Option value="2031">
-                                2031
-                            </Option>
-                            <Option value="2032">
-                                2032
-                            </Option>
-                            <Option value="2033">
-                                2033
-                            </Option>
-                        </DateSelect>
-                    </Row>
-                </Checkout_Form>
-            </Formik>
+                        {(formik.errors.CVV && formik.touched.CVV) ? <ErrorDiv__CVV>{formik.errors.CVV}</ErrorDiv__CVV> : null}
+                </Row>
+                <Row>
+                    <Date>
+                        Expiration Date
+                    </Date>
+                </Row>
+                <Row>
+                    <DateSelect
+                        type="select"
+                        name="month"
+                        id="month"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={formik.values.month}
+                        enableReinitialize={true}
+                    >
+                        <Option value="1">
+                            01 Jan
+                        </Option>
+                        <Option value="2">
+                            02 Feb
+                        </Option>
+                        <Option value="3">
+                            03 Mar
+                        </Option>
+                        <Option value="4">
+                            04 Apr
+                        </Option>
+                        <Option value="5">
+                            05 May
+                        </Option>
+                        <Option value="6">
+                            06 Jun
+                        </Option>
+                        <Option value="7">
+                            07 Jul
+                        </Option>
+                        <Option value="8">
+                            08 Aug
+                        </Option>
+                        <Option value="9">
+                            09 Sep
+                        </Option>
+                        <Option value="10">
+                            10 Oct
+                        </Option>
+                        <Option value="11">
+                            11 Nov
+                        </Option>
+                        <Option value="12">
+                            12 Dec
+                        </Option>
+                    </DateSelect>
+                    <DateSelect
+                        type="select"
+                        name="year"
+                        id="year"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={formik.values.year}
+                        enableReinitialize={true}
+                    >
+                        <Option value="2021">
+                            2021
+                        </Option>
+                        <Option value="2022">
+                            2022
+                        </Option>
+                        <Option value="2023">
+                            2023
+                        </Option>
+                        <Option value="2024">
+                            2024
+                        </Option>
+                        <Option value="2025">
+                            2025
+                        </Option>
+                        <Option value="2026">
+                            2026
+                        </Option>
+                        <Option value="2027">
+                            2027
+                        </Option>
+                        <Option value="2028">
+                            2028
+                        </Option>
+                        <Option value="2029">
+                            2029
+                        </Option>
+                        <Option value="2030">
+                            2030
+                        </Option>
+                        <Option value="2031">
+                            2031
+                        </Option>
+                        <Option value="2032">
+                            2032
+                        </Option>
+                        <Option value="2033">
+                            2033
+                        </Option>
+                    </DateSelect>
+                </Row>
+            </Checkout_Form>
         </Wrapper>
     )
 }
@@ -601,6 +650,14 @@ const ButtonWrap = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
+    @media (min-width:1200px){
+        position:absolute;
+        margin-left:22.5%;
+        width:50%;
+    }
+    @media (max-width:1200px){
+        margin:50px 0;
+    }
 `;
 const Button = styled.button`
     width:25%;
@@ -610,7 +667,7 @@ const Button = styled.button`
     border-radius: 4px;
     outline: none;
     font-family: Helvetica,Arial,sans-serif;
-    height: 24px;
+    height: 32px;
     padding: 0 20px;
     border:none;
     margin: 0 20px;
@@ -618,6 +675,14 @@ const Button = styled.button`
     justify-content:center;
     text-align:center;
     align-items:center;
+    font-weight:500;
+    @media (max-width:1200px){
+        width:35%;
+        height:45px;
+    }
+    @media (min-width:1200px){
+        margin-top:40px;
+    }
 `;
 const ErrorDiv = styled.div`
     width:150px;
@@ -645,8 +710,14 @@ const ErrorDiv__CVV = styled.div`
     color: red;
     font-family:helvetica;
     margin-top:30px;
-    margin-left:133px;
+    margin-left:15%;
     font-weight:400;
+    @media (max-width:1200px){
+        margin-left:30%;
+    }
+    @media (max-width:500px){
+        margin-left:55%;
+    }
 `;
 const ErrorDiv__Last_Name = styled.div`
     width:150px;
@@ -655,8 +726,11 @@ const ErrorDiv__Last_Name = styled.div`
     color: red;
     font-family:helvetica;
     margin-top:30px;
-    margin-left:170px;
+    margin-left:18%;
     font-weight:400;
+    @media (max-width:1200px){
+        margin-left:40%;
+    }
 `;
 const ErrorDiv__zip = styled.div`
     width:150px;
@@ -665,8 +739,11 @@ const ErrorDiv__zip = styled.div`
     color: red;
     font-family:helvetica;
     margin-top:30px;
-    margin-left:83px;
+    margin-left:8%;
     font-weight:400;
+    @media (max-width:1200px){
+        margin-left:19%;
+    }
 `;
 const ErrorDiv__city = styled.div`
     width:150px;
@@ -675,6 +752,9 @@ const ErrorDiv__city = styled.div`
     color: red;
     font-family:helvetica;
     margin-top:30px;
-    margin-left:168px;
+    margin-left:18%;
     font-weight:400;
+    @media (max-width:1200px){
+        margin-left:40%;
+    }
 `;
