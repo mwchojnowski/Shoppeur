@@ -74,10 +74,16 @@ const UpperHalf = styled.div`
   width:100%;
   display:flex;
   flex-direction:row;
+  @media (max-width:1200px){
+    flex-direction:column;
+  }
 `;
 const Col1 = styled.div`
   width:50%;
   display:flex;
+  @media (max-width:1200px){
+    width:100%;
+  }
 `;
 const Desc = styled.div`
   padding:25px 75px;
@@ -97,6 +103,9 @@ const Col2 = styled.div`
   width:50%;
   display:flex;
   flex-direction:row;
+  @media (max-width:1200px){
+    width:100%;
+  }
 `;
 const InnerDiv1 = styled.div`
   width:50%;
