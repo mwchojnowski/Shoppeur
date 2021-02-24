@@ -18,13 +18,13 @@ export default function home() {
     {
       name: "extra 25% off",
       description: "Select Featured Brand Rugs*",
-      img: "https://i.ibb.co/DrZhqLx/ezgif-com-gif-maker-2.jpg",
+      img: "https://i.ibb.co/Xjm3rG7/Rugfb239f832.png",
       url: "/category?type=Rugs",
     },
     {
       name: "extra 15% off",
       description: "Select Kitchen*",
-      img: "https://i.ibb.co/s1r4Y0r/01112021-Cat-Silo-Kitchen.jpg",
+      img: "https://i.ibb.co/svcHC49/2g094h8g43g9438.png",
       url: "/category?type=Kitchen",
     },
     {
