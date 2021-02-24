@@ -16,8 +16,6 @@ const Wrapper = Styled.a`
   width: 100%;
     justify-content: space-between;
     align-items: center;
-    /* padding-left: 25px;
-    padding-right: 25px; */
     border-bottom: 1px solid #dadcdf;
     background-color: #f9fafb;
     font-weight: 500;
@@ -55,11 +53,9 @@ const MenuContainer = Styled.div`
   overflow-x: hidden;
   transition: 0.5s;
   /* padding-top: 60px; */
-
 `;
 
 const Close = Styled.a`
-
 `;
 
 const Overlay = Styled.div`

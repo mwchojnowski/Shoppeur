@@ -1,50 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import ImageGallery from "react-image-gallery";
+import { AiFillStar } from "react-icons/ai";
 
-function Product({ data }) {
-  const [size, setSize] = useState();
-  const [color, setColor] = useState();
+function Product({ data, handleAddToCart }) {
+  const [size, setSize] = useState(data.sizes[0]);
+  const [color, setColor] = useState(data.color[0]);
   const [quantity, setQuantity] = useState(1);
-  const [showColor, setShowColor] = useState(false);
-  const productURL =
-    "https://ak1.ostkcdn.com/images/products/9273417/Becky-Cameron-Luxury-Ultra-Soft-4-piece-Bed-Sheet-Set-09df3c6e-276b-4f61-afe4-0c0328d63570_600.jpg";
 
-  const images = [
-    {
-      original:
-        "https://ak1.ostkcdn.com/images/products/9273417/Becky-Cameron-Luxury-Ultra-Soft-4-piece-Bed-Sheet-Set-09df3c6e-276b-4f61-afe4-0c0328d63570_600.jpg",
-      thumbnail:
-        "https://ak1.ostkcdn.com/images/products/9273417/Becky-Cameron-Luxury-Ultra-Soft-4-piece-Bed-Sheet-Set-09df3c6e-276b-4f61-afe4-0c0328d63570_600.jpg",
-    },
-    {
-      original:
-        "https://ak1.ostkcdn.com/images/products/9273417/Becky-Cameron-Luxury-Ultra-Soft-4-piece-Bed-Sheet-Set-5dc60df2-1c66-4fe2-b22b-4809c3c4e1d7_600.jpg",
-      thumbnail:
-        "https://ak1.ostkcdn.com/images/products/9273417/Becky-Cameron-Luxury-Ultra-Soft-4-piece-Bed-Sheet-Set-5dc60df2-1c66-4fe2-b22b-4809c3c4e1d7_80.jpg",
-    },
-    {
-      original:
-        "https://ak1.ostkcdn.com/images/products/9273417/Becky-Cameron-Luxury-Ultra-Soft-4-piece-Bed-Sheet-Set-34ff7fd3-5feb-4214-bbe2-237af12e81aa_600.jpg",
-      thumbnail:
-        "https://ak1.ostkcdn.com/images/products/9273417/Becky-Cameron-Luxury-Ultra-Soft-4-piece-Bed-Sheet-Set-34ff7fd3-5feb-4214-bbe2-237af12e81aa_80.jpg",
-    },
-    {
-      original:
-        "https://ak1.ostkcdn.com/images/products/9273417/Becky-Cameron-Luxury-Ultra-Soft-4-piece-Bed-Sheet-Set-c5400fec-a3e3-4f35-abbb-01a63a18e263_600.jpg",
-      thumbnail:
-        "https://ak1.ostkcdn.com/images/products/9273417/Becky-Cameron-Luxury-Ultra-Soft-4-piece-Bed-Sheet-Set-c5400fec-a3e3-4f35-abbb-01a63a18e263_80.jpg",
-    },
-  ];
-  // items={images.map((info) => {
-  //   return { original: info, thumbnail: info };
-  // })}
+  const handleAdd = () => {
+    handleAddToCart({
+      size,
+      quantity,
+      color,
+      price: data.price,
+      name: data.name,
+      img: data.img[0],
+      id: data.id,
+    });
+  };
+  const galleryorder = {
+    [data.color[0]]: 0,
+    [data.color[1]]: data.imgNum,
+    [data.color[2]]: data.imgNum * 2,
+    [data.color[3]]: data.imgNum * 3,
+  };
+  const gallery = useRef(null);
+
+  const handleColor = (e) => {
+    let value = e.target.value;
+    setColor(value);
+    gallery.current.slideToIndex(galleryorder[value]);
+  };
+  const handleQuantity = (e) => {
+    let value = e.target.value;
+    setQuantity(Number(value));
+  };
+
   return (
     <Wrapper>
       <Container>
         <Gallery>
           <ImageGallery
-            items={images}
+            ref={gallery}
+            items={data?.img.map((info) => {
+              return { original: info, thumbnail: info };
+            })}
             showPlayButton={false}
             showFullscreenButton={false}
             thumbnailPosition="left"
@@ -52,6 +53,14 @@ function Product({ data }) {
         </Gallery>
         <Details>
           <Product__Name>{data.name}</Product__Name>
+          <Ratings>
+            <AiFillStar color={data.rating > 0 ? "#f39019" : "#bfbfbf"} />
+            <AiFillStar color={data.rating > 1 ? "#f39019" : "#bfbfbf"} />
+            <AiFillStar color={data.rating > 2 ? "#f39019" : "#bfbfbf"} />
+            <AiFillStar color={data.rating > 3 ? "#f39019" : "#bfbfbf"} />
+            <AiFillStar color={data.rating > 4 ? "#f39019" : "#bfbfbf"} />
+            <Reviews>{data.reviews}</Reviews>
+          </Ratings>
           <Product__Price>${data.price}</Product__Price>
           {data.sizes.length > 0 && (
             <Size>
@@ -62,7 +71,7 @@ function Product({ data }) {
                     selected={size === info}
                     value={info}
                     key={info}
-                    onclick={() => setSize(info)}
+                    onClick={() => setSize(info)}
                   >
                     {info}
                   </Button>
@@ -70,17 +79,19 @@ function Product({ data }) {
               </ButtonCont>
             </Size>
           )}
-          <Color>
-            <SubTitle>Color: {color}</SubTitle>
-            <Select>
-              {data.color.map((info) => (
-                <Option>{info.name}</Option>
-              ))}
-            </Select>
-          </Color>
+          {data.color.length > 1 && (
+            <Color>
+              <SubTitle>Color: {color}</SubTitle>
+              <Select onChange={(e) => handleColor(e)} value={color}>
+                {data.color.map((info) => (
+                  <Option key={info}>{info}</Option>
+                ))}
+              </Select>
+            </Color>
+          )}
           <Quantity>
             <SubTitle>Quantity:</SubTitle>
-            <Select>
+            <Select onChange={(e) => handleQuantity(e)} value={quantity}>
               <Option>1</Option>
               <Option>2</Option>
               <Option>3</Option>
@@ -93,7 +104,7 @@ function Product({ data }) {
               <Option>10</Option>
             </Select>
           </Quantity>
-          <AddToCart>Add To Cart</AddToCart>
+          <AddToCart onClick={handleAdd}>Add To Cart</AddToCart>
         </Details>
       </Container>
     </Wrapper>
@@ -106,7 +117,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 200px;
+  padding-top: 125px;
+  @media ${(props) => props.theme.laptopM} {
+    padding-top: 150px;
+  }
 `;
 
 const Container = styled.div`
@@ -135,17 +149,6 @@ const Gallery = styled.div`
   }
 `;
 
-const Gallery__IMG__TEMP = styled.img``;
-
-const Picture = styled.div`
-  padding-right: 50px;
-`;
-
-const Img = styled.img`
-  height: 500px;
-  width: 500px;
-`;
-
 const Details = styled.div`
   width: 100%;
   @media ${(props) => props.theme.tablet} {
@@ -156,14 +159,12 @@ const Details = styled.div`
   }
 `;
 
-//Details Children Below here
-
 const Product__Name = styled.h1`
   color: #2f3337;
   font-size: 24px;
   font-weight: 700;
   line-height: 28px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 `;
 
 const Product__Price = styled.h1`
@@ -189,10 +190,10 @@ const ButtonCont = styled.div`
   flex-wrap: wrap;
 `;
 const Button = styled.button`
-  background-color: #fff;
+  background: ${(props) => (props.selected ? props.theme.BoldText : "#fff")};
   border-radius: 100px;
   border: 1px solid #2f3337;
-  color: #2f3337;
+  color: ${(props) => (props.selected ? "#fff" : props.theme.BoldText)};
   cursor: pointer;
   display: inline-block;
   font-family: Helvetica;
@@ -211,8 +212,19 @@ const Button = styled.button`
     color 0.3s;
   white-space: nowrap;
   margin-right: 10px;
+  margin-bottom: 10px;
+  &:hover {
+    background: ${(props) =>
+      props.selected ? props.theme.BoldText : "#e8e8e8"};
+  }
 `;
-
+const Ratings = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 2px;
+  align-items: center;
+  margin-bottom: 10px;
+`;
 const Color = styled.div`
   margin-bottom: 25px;
 `;
@@ -291,4 +303,9 @@ const AddToCart = styled.button`
   justify-content: center;
   border: none;
   margin-top: 25px;
+`;
+const Reviews = styled.span`
+  font-size: 12px;
+  margin-left: 5px;
+  color: black;
 `;

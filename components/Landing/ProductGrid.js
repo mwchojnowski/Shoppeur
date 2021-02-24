@@ -10,9 +10,10 @@ const ProductGrid = ({ title, type, data }) => {
         <H2>{title}</H2>
       </Header>
       <MainCont>
-        {type === "PRODUCT" && data.map((info) => <ProductCard data={info}/>)}
+        {type === "PRODUCT" &&
+          data.map((info) => <ProductCard key={info.id} data={info} />)}
         {type === "CATEGORY" &&
-          data.map((info) => <CategoryCard data={info} />)}
+          data.map((info) => <CategoryCard key={info.name} data={info} />)}
       </MainCont>
     </Wrapper>
   );
@@ -35,6 +36,7 @@ const Header = styled.div`
 const H2 = styled.h2`
   font-size: 38px;
   font-weight: 500;
+  text-align: center;
 `;
 const MainCont = styled.div`
   display: grid;

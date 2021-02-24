@@ -17,9 +17,9 @@ export default function NavCategories(props) {
   return (
     <Wrapper>
       <Container>
-        {categories.map((item, index) => {
-          return <NavItem>{item.name}</NavItem>;
-        })}
+        {categories.map((item) => (
+          <NavItem key={item.name}>{item.name}</NavItem>
+        ))}
       </Container>
     </Wrapper>
   );
@@ -100,7 +100,6 @@ const Button = Styled.button`
     @media ${(props) => props.theme.mobileL} {
         background-color: #ff1f2c;
         color: white;
-
 }
     /* outline: 2px solid black; */
 `;

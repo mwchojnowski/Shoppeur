@@ -14,23 +14,15 @@ export default function Dropdown(props) {
       open={props.focused}
     >
       {props.data.map((item, index) => {
-        return <DropdownItem name={item.name} />;
+        return <DropdownItem key={item.id} data={item} />;
       })}
-      {/* <Icon>
-            <BsChevronUp />
-        </Icon> */}
-      {/* <style global jsx>{`
-            body {
-              overflow: hidden;
-            }
-          `}</style> */}
     </Wrapper>
   );
 }
 const Wrapper = Styled.div`
-    width: 200px;
+    width: 60%;
+    max-height: 400px;
     position: absolute;
-    /* height: 300px; */
     top: 110%;
     left: 0;
     background-color: white;
@@ -77,7 +69,6 @@ const Button = Styled.button`
     @media ${(props) => props.theme.mobileL} {
         background-color: #ff1f2c;
         color: white;
-
 }
     /* outline: 2px solid black; */
 `;

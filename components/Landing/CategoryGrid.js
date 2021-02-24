@@ -4,29 +4,6 @@ import ShopNowCard from "./ShopNowCard";
 import SaleCard from "./SaleCard";
 
 const CategoryGrid = ({ type, data }) => {
-  // const data = [
-  //   {
-  //     name: "Superior 600 Thread Count Deep Pocket Polka Dot",
-  //     price: "Sale: $37.82 - $58.22",
-  //     url: "",
-  //     img:
-  //       "https://ak1.ostkcdn.com/img/mxc/02162021-3MOD_528x370_BathroomMakeover.jpg",
-  //   },
-  //   {
-  //     name: "Superior 600 Thread Count Deep Pocket Polka Dot",
-  //     price: "Sale: $37.82 - $58.22",
-  //     url: "",
-  //     img:
-  //       "https://ak1.ostkcdn.com/img/mxc/02162021-3MOD_528x370_BathroomMakeover.jpg",
-  //   },
-  //   {
-  //     name: "Superior 600 Thread Count Deep Pocket Polka Dot",
-  //     price: "Sale: $37.82 - $58.22",
-  //     url: "",
-  //     img:
-  //       "https://ak1.ostkcdn.com/img/mxc/02162021-3MOD_528x370_BathroomMakeover.jpg",
-  //   },
-  // ];
   const saleData = [
     {
       url: "",
@@ -45,10 +22,13 @@ const CategoryGrid = ({ type, data }) => {
     <Wrapper>
       <MainCont>
         {type === "SHOPNOW" &&
-          data.map((info) => <ShopNowCard data={info} mb={"50px"} />)}
+          data.map((info) => (
+            <ShopNowCard key={info.id} data={info} mb={"50px"} />
+          ))}
         {type === "SALE" &&
           saleData.map((info, i) => (
             <SaleCard
+              key={info.url}
               data={info}
               mb={"10px"}
               last={i === saleData.length - 1}

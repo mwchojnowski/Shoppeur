@@ -33,6 +33,7 @@ export default function FilterSection({
         prices.map((item, index) => {
           return (
             <PriceItem
+              key={item}
               name={item}
               priceFilter={priceFilter}
               setPriceFilter={setPriceFilter}
@@ -43,6 +44,7 @@ export default function FilterSection({
         categories.map((item, index) => {
           return (
             <CategoryItem
+              key={item}
               setGroup={setGroup}
               group={group}
               name={item}

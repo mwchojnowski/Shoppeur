@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PageLayout from "../../components/PageLayout";
 import styled from "styled-components";
 import Header from "../../components/Collection/Header";
 import MainSection from "../../components/Collection/MainSection";
-import { useRouter } from "next/router";
 
-export default function Collection({}) {
-  const { query } = useRouter();
-  console.log(query);
+export default function Collection() {
+  const [sort, setSort] = useState("");
+  const [group, setGroup] = useState("Bed & Bath");
+
   const urlq = {
     Rugs: "Rugs",
     BedNBath: "Bed & Bath",
@@ -15,8 +15,11 @@ export default function Collection({}) {
     Decor: "Decor",
     HomeImprovement: "Home Improvement",
   };
-  const [sort, setSort] = useState("");
-  const [group, setGroup] = useState(urlq[query?.type] || "Bed & Bath");
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get("type");
+    if (myParam) setGroup(urlq[myParam]);
+  }, []);
 
   return (
     <PageLayout>
@@ -34,7 +37,6 @@ export default function Collection({}) {
     </PageLayout>
   );
 }
-
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
@@ -44,6 +46,7 @@ const Wrapper = styled.div`
   margin-top: 40px;
   @media ${(props) => props.theme.tabletL} {
     margin-top: 80px;
+    margin-bottom: 50px;
   }
 `;
 

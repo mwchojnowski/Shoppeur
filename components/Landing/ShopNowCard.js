@@ -13,10 +13,8 @@ const ShopNowCard = ({ data, mb }) => {
           <H2>${data.price}</H2>
           <P>{data.name}</P>
           <ButtonDiv>
-          <Button>
-            Shop Now
-          </Button>
-        </ButtonDiv>
+            <Button>Shop Now</Button>
+          </ButtonDiv>
         </TextCont>
       </Wrapper>
     </Link>
@@ -71,25 +69,23 @@ const TextCont = styled.div`
   padding: 20px 40px;
   background: ${(props) => props.theme.lightGrey};
 `;
-
 const ButtonDiv = styled.div`
-  width:100%;
-  display:flex;
-  justify-content:center;
-  padding-top:10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
 `;
-
 const Button = styled.button`
-  font-family:Helvetica;
-  font-weight:bold;
-  font-size:14px;
-  letter-spacing:.5px;
-  padding:12px 30px;
-  font-weight:400;
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  padding: 12px 30px;
+  font-weight: 400;
   background: ${(props) => props.theme.lightGrey};
-  border:1px black solid;
-  border-radius:4px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  border: 1px black solid;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

@@ -1,74 +1,92 @@
-import React from "react"
-import styled from "styled-components"
-import{AiOutlineLock} from "react-icons/ai"
-import { useRouter } from 'next/router'
+import React from "react";
+import styled from "styled-components";
+import { BsLock } from "react-icons/bs";
+import Link from "next/link";
 
-export default function CheckoutNav(){
-    const router = useRouter()
-    return(
-        <Wrapper>
-            <Container>
-                <Logo onClick={()=>router.push("/")}>
-                    Overstock
-                </Logo>
-                <Checkout>
-                    <Icon>
-                        <AiOutlineLock />
-                    </Icon>
-                    <Text>
-                        Checkout
-                    </Text>
-                </Checkout>
-            </Container>
-        </Wrapper>
-    )
+export default function CheckoutNav() {
+  return (
+    <Wrapper>
+      <Link href="/" passHref>
+        <LogoTag>
+          <SmallLogo src={"/Overstock_Icon.svg"} />
+          <Logo src={"/Overstock_Logo.svg"} />
+        </LogoTag>
+      </Link>
+      <Checkout>
+        <Icon>
+          <BsLock />
+        </Icon>
+        <Text>Checkout</Text>
+      </Checkout>
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`
-    width:100%;
-    height:auto;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-`;
-
-const Container = styled.div`
-    width:60%;
-    height:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-direction:row;
-    border-bottom:1px solid #dadcdf;
-    @media (max-width:1200px){
-        width:100%;
-    }
-`;
-
-const Logo = styled.div`
-    font-size:32px;
-    font-weight:400;
-    padding:25px;
-    cursor:pointer;
+  width: 100%;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #dadcdf;
+  @media ${(props) => props.theme.laptop} {
+    width: 1000px;
+  }
+  @media ${(props) => props.theme.laptopL} {
+    width: 1220px;
+  }
 `;
 
 const Checkout = styled.div`
-    padding:25px;
-    display:flex;
-    flex-direction:row;
-    align-items:center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 20px;
+  @media ${(props) => props.theme.tablet} {
+    padding-right: 0px;
+  }
 `;
 
 const Icon = styled.div`
-    font-size:20px;
-    display:flex;
-    align-items:center;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
 `;
 
 const Text = styled.div`
-    font-size: 20px;
-    font-weight: 700;
-    display:flex;
-    align-items:center;
-    padding-left:10px;
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-top: 2px;
+`;
+const LogoTag = styled.a`
+  padding-left: 20px;
+  @media ${(props) => props.theme.tablet} {
+    padding-left: 0px;
+  }
+`;
+
+const Logo = styled.img`
+  width: 170px;
+  color: red;
+  display: none;
+  @media ${(props) => props.theme.tabletL} {
+    display: flex;
+    font-size: 40px;
+    justify-content: space-between;
+  }
+`;
+
+const SmallLogo = styled.img`
+  width: 35px;
+  color: red;
+  display: flex;
+  @media ${(props) => props.theme.tabletL} {
+    display: flex;
+    font-size: 40px;
+    justify-content: space-between;
+    display: none;
+  }
 `;

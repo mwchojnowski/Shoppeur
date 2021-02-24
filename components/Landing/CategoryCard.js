@@ -4,7 +4,10 @@ import Link from "next/link";
 
 const CategoryCard = ({ data }) => {
   return (
-    <Link href={data.url} passHref>
+    <Link
+      href={{ pathname: "/category", query: { type: data.urlQuery } }}
+      passHref
+    >
       <Wrapper>
         <Img src={data.img} />
         <TextCont>

@@ -8,7 +8,7 @@ export default function Product({ data }) {
   const href = window.location.href;
 
   return (
-    <Wrapper href={href + "/" + data.id}>
+    <Wrapper href={"/category/" + data.id}>
       <Image src={data?.img[0]} />
       <Container>
         <InnerContainer>
@@ -20,7 +20,6 @@ export default function Product({ data }) {
             <AiFillStar color={data.rating > 2 ? "#f39019" : "#bfbfbf"} />
             <AiFillStar color={data.rating > 3 ? "#f39019" : "#bfbfbf"} />
             <AiFillStar color={data.rating > 4 ? "#f39019" : "#bfbfbf"} />
-            <Reviews>{data.reviews}</Reviews>
           </Ratings>
           <Title>{data.name}</Title>
           <Shipping>
@@ -94,6 +93,7 @@ const Ratings = styled.div`
 `;
 
 const Reviews = styled.span`
+  width: 20px;
   font-size: 12px;
   margin-left: 5px;
   color: black;

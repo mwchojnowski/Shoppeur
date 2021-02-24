@@ -39,5 +39,10 @@ const ImgCont = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media ${(props) => props.theme.tablet} {
+    padding: 20px 10px;
+  }
 `;
-const Img = styled.img``;
+const Img = styled.img`
+  width: 100%;
+`;

@@ -1,11 +1,12 @@
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import styled from "styled-components";
+import CheckoutNav from "./Checkout/CheckoutNav";
 
 const PageLayout = (props) => {
   return (
     <Wrapper>
-      <NavBar />
+      {props.Checkout ? <CheckoutNav /> : <NavBar />}
       <MainCont type={props.type}>{props.children}</MainCont>
       <Footer />
     </Wrapper>

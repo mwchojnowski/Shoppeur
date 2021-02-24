@@ -10,7 +10,6 @@ export default function Overview({ data }) {
           <Column>
             <Description__Title>Description</Description__Title>
             <Description>
-              <MiniTitle>Details:</MiniTitle>
               <MiniText>{data.description}</MiniText>
             </Description>
           </Column>

@@ -10,7 +10,14 @@ export default function SideMenu(props) {
           <Logo src="/Overstock_WhiteIcon.svg" />
         </LogoRow>
         <TitleRow>Categories</TitleRow>
-        <MenuItem name="Furniture" href="/Furniture" />
+        <MenuItem name="Bed & Bath" href="/category?type=BedNBath" />
+        <MenuItem name="Kitchen" href="/category?type=Kitchen" />
+        <MenuItem name="Decor" href="/category?type=Decor" />
+        <MenuItem name="Rugs" href="/category?type=Rugs" />
+        <MenuItem
+          name="Home Improvement"
+          href="/category?type=HomeImprovement"
+        />
       </MenuContainer>
       <Overlay open={props.isOpen} onClick={() => props.onClose()} />
       {props.isOpen && (
@@ -34,7 +41,6 @@ const Wrapper = Styled.div`
   overflow-x: hidden;
   transition: 0.2s;
   padding-top: 100px;
-
 `;
 
 const LogoRow = Styled.div`
@@ -61,11 +67,9 @@ const MenuContainer = Styled.div`
   overflow-x: hidden;
   transition: 0.2s;
   /* padding-top: 60px; */
-
 `;
 
 const Close = Styled.a`
-
 `;
 
 const Overlay = Styled.div`

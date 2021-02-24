@@ -11,24 +11,64 @@ const ProductCard = ({ data }) => {
           <H2>${data.price}</H2>
           <P>{data.name}</P>
         </TextCont>
-        {(Math.round(data.rating) == 5) &&
+        {Math.round(data.rating) == 5 && (
           <Rating>
-            <Star src={"https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"} />
-            <Star src={"https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"} />
-            <Star src={"https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"} />
-            <Star src={"https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"} />
-            <Star src={"https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"} />
+            <Star
+              src={
+                "https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"
+              }
+            />
+            <Star
+              src={
+                "https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"
+              }
+            />
+            <Star
+              src={
+                "https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"
+              }
+            />
+            <Star
+              src={
+                "https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"
+              }
+            />
+            <Star
+              src={
+                "https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"
+              }
+            />
           </Rating>
-        }
-        {(Math.round(data.rating) == 4) &&
+        )}
+        {Math.round(data.rating) == 4 && (
           <Rating>
-            <Star src={"https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"} />
-            <Star src={"https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"} />
-            <Star src={"https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"} />
-            <Star src={"https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"} />
-            <Star src={"https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-empty.svg"} />
+            <Star
+              src={
+                "https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"
+              }
+            />
+            <Star
+              src={
+                "https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"
+              }
+            />
+            <Star
+              src={
+                "https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"
+              }
+            />
+            <Star
+              src={
+                "https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-full.svg"
+              }
+            />
+            <Star
+              src={
+                "https://ak1.ostkcdn.com/img/mxc/20200227_rating-star-empty.svg"
+              }
+            />
           </Rating>
-        }
+        )}
       </Wrapper>
     </Link>
   );
@@ -68,10 +108,10 @@ const TextCont = styled.div`
   padding-top: 20px;
 `;
 const Rating = styled.div`
-  display:flex;
-  flex-direction:row;
-  margin-top:10px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
 `;
 const Star = styled.img`
-  padding-left:3px;
+  padding-left: 3px;
 `;
