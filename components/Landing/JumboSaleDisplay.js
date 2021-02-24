@@ -44,13 +44,13 @@ const SaleImg = styled.img`
   cursor: pointer;
 `;
 
-export const Div = styled.div`
+const Div = styled.div`
   display:${(props) => (!props.First ? "flex" : "none")};
   align-items:center;
   flex-direction:column;
   
   position:absolute;
-  margin-bottom:350px;
+  top:0;
   //left:0px;
   margin-left:65px;
   

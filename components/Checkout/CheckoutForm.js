@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useRef,useEffect} from 'react';
 import { Formik, Field, Form, ErrorMessage,useFormik } from 'formik';
 import styled from 'styled-components';
 import swal from 'sweetalert'
@@ -7,6 +7,10 @@ import { useRouter } from 'next/router'
 export default function CheckoutForm(){
 
     const router = useRouter()
+
+    let scrollRef = useRef();
+
+    const [Display,setDisplay] = useState(false)
 
     const StatesUS = new Set([ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 
     'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 
@@ -87,11 +91,12 @@ export default function CheckoutForm(){
             parseFloat(formik.values.CVV.length)>2 
         )    
             return true
-        else 
+        else {
             return false
+        }
     }
     return (
-        <Wrapper>
+        <Wrapper id="wrap">
             <Checkout_Form id="my-form" onSubmit={(e)=>{
                 e.preventDefault()
                 if(checkSubmission()){
@@ -101,10 +106,21 @@ export default function CheckoutForm(){
                         title: "Successful Purchase",
                         text: "Thank You For Shopping With Us",
                     })
-                    .then( x => { router.push("/")})
+                    .then( x => { 
+                        localStorage.removeItem('Cart');
+                        router.push("/")
+                    }
+                    )
+                }
+                else{
+                    setDisplay(true)
+                    window.scrollTo({
+                        behavior: "smooth",
+                        top: scrollRef.current.offsetTop
+                      });
                 }
             }}>
-                <H1Div>
+                <H1Div ref={scrollRef}>
                     <H1> Billing Address </H1>
                     <Button type="reset" onClick={()=>{
                         formik.resetForm({
@@ -123,10 +139,18 @@ export default function CheckoutForm(){
                                 year:'2021'
                             }
                         })
+                        setDisplay(false)
                     }}>
                         Autofill
                     </Button>
                 </H1Div>
+                <Row>
+                    {Display &&
+                    <SubmitError id="scroll">
+                        PLEASE FILL IN ALL FIELDS BEFORE SUBMITTING 
+                    </SubmitError>
+                    }
+                </Row>
                 <Row>
                     <FullDiv>
                         <Full>Email Address</Full>
@@ -558,6 +582,12 @@ const ErrorDiv = styled.div`
     font-weight:400;
     color:red;
     font-size:12px;
+`;
+const SubmitError = styled.div`
+    font-family:helvetica;
+    font-weight:400;
+    color:red;
+    font-size:15px;
 `;
 const DateSelect = styled.select`
     width:20%;
