@@ -53,7 +53,7 @@ export default function CheckoutContent(){
         ItemArray.map(
             (item)=>{
                 x+=(item.price*item.quantity)
-                y+=item.quantity
+                y+=parseFloat(item.quantity) 
             }
         )
         updateTotalPrice(x)
@@ -127,6 +127,14 @@ export default function CheckoutContent(){
                                     <Text>
                                         ${(TotalPrice*.1).toFixed(2)}
                                     </Text>
+                                </Row>
+                                <Row>
+                                    <Large>
+                                        Total:
+                                    </Large>
+                                    <Large>
+                                        ${(TotalPrice*.1+TotalPrice).toFixed(2)}
+                                    </Large>
                                 </Row>
                                 <Button form="my-form" type="submit">
                                     Submit Order
@@ -262,6 +270,13 @@ const Bold = styled.div`
 const Red = styled.div`
     color:red;
     line-height:1.5;
+`;
+
+export const Large = styled.h1`
+    font-size:22px;
+    color: #2f3337;
+    line-height: 1.5;
+    font-weight:bold;
 `;
 
 const Button = styled.button`

@@ -82,7 +82,7 @@ export default function CheckoutForm(){
             parseFloat(formik.values.address.length)>1 &&
             parseFloat(formik.values.zip.length)>4 &&
             parseFloat(formik.values.city.length)>1 &&
-            parseFloat(formik.values.state.length)!==2 &&
+            parseFloat(formik.values.state.length)>1 &&
             parseFloat(formik.values.CC.length)>15 &&
             parseFloat(formik.values.CVV.length)>2 
         )    
@@ -141,7 +141,7 @@ export default function CheckoutForm(){
                         /> {(formik.errors.email && formik.touched.email) && <ErrorDiv>{formik.errors.email}</ErrorDiv>}
                     </FullDiv>
                 </Row>
-                <Row>
+                <Row_Name>
                     <HalfDiv>
                         <H2>First Name</H2>
                         <Input__Half
@@ -166,7 +166,7 @@ export default function CheckoutForm(){
                             enableReinitialize={true}
                         />{(formik.errors.last_name && formik.touched.last_name) && <ErrorDiv>{formik.errors.last_name}</ErrorDiv>}
                     </HalfDiv>
-                </Row>
+                </Row_Name>
                 <Row>
                     <FullDiv>
                         <Full>Address</Full>
@@ -192,8 +192,7 @@ export default function CheckoutForm(){
                             onChange={formik.handleChange}
                             value={formik.values.country}
                             enableReinitialize={true}
-                        >
-                            <Option value="US">United States</Option>
+                        > <Option value="US">United States</Option>
                         </QSelect>
                     </QuarterDiv>
                     <QuarterDiv>
@@ -410,6 +409,13 @@ const Row = styled.div`
     flex-direction:row;
     margin:10px 0;
 `;
+const Row_Name = styled.div`
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    margin:10px 0;
+    justify-content:space-between;
+`;
 const Full = styled.h2`
     width:100%;
     font-family: Helvetica,Arial,sans-serif;
@@ -440,7 +446,7 @@ const H2 = styled.h2`
 `;
 const Input__Half = styled.input`
     width:100%;
-    padding: 7px 15px;
+    padding: 7px;
     background: #fff;
     color: #7b7b7b;
     font-weight: 600;
@@ -465,7 +471,7 @@ const H3 = styled.h3`
 `;
 const Input__Quarter = styled.input`
     width:65%;
-    padding: 7px 15px;
+    padding: 7px;
     background: #fff;
     color: #7b7b7b;
     font-weight: 500;
@@ -478,7 +484,7 @@ const Input__Quarter = styled.input`
 `;
 const QSelect = styled.select`
     width:85%;
-    padding: 7px 15px;
+    padding: 7px;
     background: #fff;
     color: #7b7b7b;
     font-weight: 500;
@@ -521,7 +527,7 @@ const Title = styled.h2`
 `;
 const Input__CardNum = styled.input`
     width:90%;
-    padding: 7px 15px;
+    padding: 7px;
     background: #fff;
     color: #7b7b7b;
     font-weight: 500;
@@ -535,7 +541,7 @@ const Input__CardNum = styled.input`
 `;
 const Input__CVV = styled.input`
     width:25%;
-    padding: 7px 15px;
+    padding: 7px;
     background: #fff;
     color: #7b7b7b;
     font-weight: 500;
@@ -547,14 +553,15 @@ const Input__CVV = styled.input`
     margin-bottom:5px;
 `;
 const ErrorDiv = styled.div`
-    margin-bottom:10px;
+    margin-bottom:15px;
     font-family:helvetica;
     font-weight:400;
     color:red;
+    font-size:12px;
 `;
 const DateSelect = styled.select`
     width:20%;
-    padding: 7px 15px;
+    padding: 7px;
     background: #fff;
     color: #7b7b7b;
     font-weight: 500;
@@ -581,7 +588,7 @@ const Date = styled.h2`
     margin-left:23px;
 `;
 const Button = styled.button`
-    width:25%;
+    width:100px;
     height: 32px;
     background-color: red;
     color: #fff;
@@ -596,8 +603,8 @@ const Button = styled.button`
     justify-content:center;
     text-align:center;
     align-items:center;
-    font-weight:700;
-    letter-spacing:1px;  
+    font-weight:600;
+    letter-spacing:1.4px;  
 `;
 const FullDiv = styled.div`
     width:100%;
@@ -606,7 +613,7 @@ const FullDiv = styled.div`
 `;
 
 const HalfDiv = styled.div`
-    width:50%;
+    width:47%;
     display:flex;
     flex-direction:column;
 `;
