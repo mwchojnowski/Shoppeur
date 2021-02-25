@@ -4,6 +4,7 @@ import { VscBell } from "react-icons/vsc";
 import Cart from "../../public/Cart_Icon.svg";
 import { BsPerson } from "react-icons/bs";
 import Link from "next/link";
+import Dropdown from "./Dropdown";
 
 export default function NavOption({ type, isTablet, isMobile, url }) {
   const [cartItems, setCartItems] = useState(0);
@@ -13,38 +14,131 @@ export default function NavOption({ type, isTablet, isMobile, url }) {
   }, []);
   return (
     <Link href={url} passHref>
-      <Wrapper
-        type={type}
-        hide={isTablet && (type === "account" || type === "Try")}
-      >
-        {type === "cart" ? (
-          <>
-            <Cart /> <CartNumber>{cartItems}</CartNumber>
-          </>
-        ) : type === "account" ? (
-          <BsPerson />
-        ) : type === "bell" ? (
-          <VscBell />
-        ) : (
-          <BsPerson />
-        )}
-        <Title
+        <Container
           type={type}
-          hide={isMobile && (type === "cart" || type === "bell")}
+          hide={isTablet && (type === "account" || type === "Try")}
         >
-          {type === "cart"
-            ? "Cart"
-            : type === "account"
-            ? "Account"
-            : type === "bell"
-            ? "Notifications"
-            : "Club O"}
-        </Title>
-      </Wrapper>
+          {type === "cart" ? (
+            <>
+              <Cart /> <CartNumber>{cartItems}</CartNumber>
+            </>
+          ) : type === "account" ? (
+            <BsPerson />
+          ) : type === "bell" ? (
+            <VscBell />
+          ) : (
+            <BsPerson />
+          )}
+          <Title
+            type={type}
+            hide={isMobile && (type === "cart" || type === "bell")}
+          >
+            {type === "cart"
+              ? "Cart"
+              : type === "account"
+              ? "Account"
+              : type === "bell"
+              ? "Notifications"
+              : "Club O"}
+          </Title>
+          <Connect></Connect>
+        {!(type === "cart") ?
+          <DropDownDiv>
+            {type==="bell" ?
+              <Img2 src={"/Alarm.svg"}/>
+            :type==="cart" ?
+            null
+            :<Img src="https://i.gyazo.com/78b390481bf698b8bc7e7a401caec3f8.png"/>}
+            {type==="bell" ?
+              <>
+                <HoverTitle>
+                  No New Notifications
+                </HoverTitle>
+                <Text>
+                  Check back daily for new notifications, coupons, and more!
+                </Text>
+              </>
+            : type==="cart" ?
+              null
+            :
+              <>
+                <HoverTitle>
+                  5% Rewards on Every Purchase
+                </HoverTitle>
+                <Button>
+                  See All Sales
+                </Button>
+              </>
+            }
+          </DropDownDiv>
+        :null}
+        </Container>
+
     </Link>
   );
 }
-const Wrapper = styled.a`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const Connect = styled.div`
+  height: 25px;
+  width: 25px;
+  top:33px;
+  position:absolute;
+`;
+const DropDownDiv = styled.div`
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:white;
+  position:absolute;
+  top:55px;
+  height: 245px;
+  width: 180px;
+  border: 1px solid #dadcdf;
+`;
+const Img = styled.img`
+  width:125px;
+  z-index: 1;
+  margin-bottom:10px;
+`;
+const Img2 = styled.img`
+  width:100px;
+  z-index: 1;
+`;
+const HoverTitle = styled.h3`
+  font-size: 14px;
+  line-height: 20px;
+  color: #545658;
+  font-weight: 600;
+  z-index: 1;
+  text-align:center;
+`;
+const Text = styled.h3`
+  font-size: 12px;
+  line-height: 20px;
+  color: #545658;
+  font-weight: 500;
+  z-index: 1;
+  text-align:center;
+  width:80%;
+`;
+const Button = styled.button`
+  font-size:12px;
+  text-align:center;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-top: 5px;
+  display: inline-flex;
+  align-items: center;
+  background-color: #2f3337;
+  color: #fff;
+`;
+const Container = styled.a`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -63,6 +157,11 @@ const Wrapper = styled.a`
     display: flex;
     font-size: 40px;
     justify-content: space-between;
+  }
+  &:hover{
+    ${DropDownDiv}{
+      display:flex;
+    }
   }
 `;
 
