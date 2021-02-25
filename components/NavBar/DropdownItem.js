@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 export default function DropdownItem({ data }) {
+  const router = useRouter();
+
   return (
-    <Link href={"/category/" + data.id} passHref>
-      <Wrapper>
-        <Title>{data.name}</Title>
-      </Wrapper>
-    </Link>
+    <Wrapper
+      onClick={() => {
+        router.push("/category/" + data.id);
+      }}
+    >
+      <Title>{data.name}</Title>
+    </Wrapper>
   );
 }
 const Wrapper = styled.a`

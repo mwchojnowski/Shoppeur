@@ -7,13 +7,12 @@ const Footer = () => {
       <Container>
         <UpperHalf>
           <Col1>
-            <H2>O.com®</H2>
+            <H2>Shoppeur®</H2>
             <P>
-              Shop Overstock.com and find the best online deals on everything
-              for your home. We work every day to bring you discounts on new
-              products across our entire store. Whether you're looking for
-              memorable gifts or everyday essentials, you can buy them here for
-              less.
+              Shop and find the best online deals on everything for your home.
+              We work every day to bring you discounts on new products across
+              our entire store. Whether you're looking for memorable gifts or
+              everyday essentials, you can buy them here for less.
             </P>
           </Col1>
           <Col2>
@@ -32,7 +31,7 @@ const Footer = () => {
           </Col2>
         </UpperHalf>
         <LowerHalf>
-          © Copyright 2021, Overstock Inc. All Rights Reserved
+          © Copyright 2021, Shoppeur Inc. All Rights Reserved
         </LowerHalf>
       </Container>
     </Wrapper>

@@ -2,10 +2,19 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import styled from "styled-components";
 import CheckoutNav from "./Checkout/CheckoutNav";
+import Head from "next/head";
 
 const PageLayout = (props) => {
   return (
     <Wrapper>
+      <Head>
+        <title>
+          Shoppeur: Online Shopping - Bedding, Furniture, Decor, Home
+          Improvement & more
+        </title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       {props.Checkout ? <CheckoutNav /> : <NavBar />}
       <MainCont type={props.type}>{props.children}</MainCont>
       <Footer />

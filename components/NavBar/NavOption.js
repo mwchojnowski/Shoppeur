@@ -13,68 +13,58 @@ export default function NavOption({ type, isTablet, isMobile, url }) {
     setCartItems(localCart.length);
   }, []);
   return (
-    <Link href={url} passHref>
-        <Container
-          type={type}
-          hide={isTablet && (type === "account" || type === "Try")}
-        >
-          {type === "cart" ? (
-            <>
-              <Cart /> <CartNumber>{cartItems}</CartNumber>
-            </>
-          ) : type === "account" ? (
-            <BsPerson />
-          ) : type === "bell" ? (
-            <VscBell />
-          ) : (
-            <BsPerson />
+    <Container
+      href={url}
+      type={type}
+      hide={isTablet && (type === "account" || type === "Try")}
+    >
+      {type === "cart" ? (
+        <>
+          <Cart /> <CartNumber>{cartItems}</CartNumber>
+        </>
+      ) : type === "account" ? (
+        <BsPerson />
+      ) : type === "bell" ? (
+        <VscBell />
+      ) : (
+        <BsPerson />
+      )}
+      <Title
+        type={type}
+        hide={isMobile && (type === "cart" || type === "bell")}
+      >
+        {type === "cart"
+          ? "Cart"
+          : type === "account"
+          ? "Account"
+          : type === "bell"
+          ? "Notifications"
+          : "Club O"}
+      </Title>
+      <Connect></Connect>
+      {!(type === "cart") ? (
+        <DropDownDiv>
+          {type === "bell" ? (
+            <Img2 src={"/Alarm.svg"} />
+          ) : type === "cart" ? null : (
+            <Img src={"Rewards.png"} />
           )}
-          <Title
-            type={type}
-            hide={isMobile && (type === "cart" || type === "bell")}
-          >
-            {type === "cart"
-              ? "Cart"
-              : type === "account"
-              ? "Account"
-              : type === "bell"
-              ? "Notifications"
-              : "Club O"}
-          </Title>
-          <Connect></Connect>
-        {!(type === "cart") ?
-          <DropDownDiv>
-            {type==="bell" ?
-              <Img2 src={"/Alarm.svg"}/>
-            :type==="cart" ?
-            null
-            :<Img src="https://i.gyazo.com/78b390481bf698b8bc7e7a401caec3f8.png"/>}
-            {type==="bell" ?
-              <>
-                <HoverTitle>
-                  No New Notifications
-                </HoverTitle>
-                <Text>
-                  Check back daily for new notifications, coupons, and more!
-                </Text>
-              </>
-            : type==="cart" ?
-              null
-            :
-              <>
-                <HoverTitle>
-                  5% Rewards on Every Purchase
-                </HoverTitle>
-                <Button>
-                  See All Sales
-                </Button>
-              </>
-            }
-          </DropDownDiv>
-        :null}
-        </Container>
-
-    </Link>
+          {type === "bell" ? (
+            <>
+              <HoverTitle>No New Notifications</HoverTitle>
+              <Text>
+                Check back daily for new notifications, coupons, and more!
+              </Text>
+            </>
+          ) : type === "cart" ? null : (
+            <>
+              <HoverTitle>5% Rewards on Every Purchase</HoverTitle>
+              <Button>See All Sales</Button>
+            </>
+          )}
+        </DropDownDiv>
+      ) : null}
+    </Container>
   );
 }
 const Wrapper = styled.div`
@@ -85,28 +75,28 @@ const Wrapper = styled.div`
 const Connect = styled.div`
   height: 25px;
   width: 25px;
-  top:33px;
-  position:absolute;
+  top: 33px;
+  position: absolute;
 `;
 const DropDownDiv = styled.div`
-  display:none;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  background:white;
-  position:absolute;
-  top:55px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+  position: absolute;
+  top: 55px;
   height: 245px;
   width: 180px;
   border: 1px solid #dadcdf;
 `;
 const Img = styled.img`
-  width:125px;
+  width: 125px;
   z-index: 1;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 `;
 const Img2 = styled.img`
-  width:100px;
+  width: 100px;
   z-index: 1;
 `;
 const HoverTitle = styled.h3`
@@ -115,7 +105,7 @@ const HoverTitle = styled.h3`
   color: #545658;
   font-weight: 600;
   z-index: 1;
-  text-align:center;
+  text-align: center;
 `;
 const Text = styled.h3`
   font-size: 12px;
@@ -123,12 +113,12 @@ const Text = styled.h3`
   color: #545658;
   font-weight: 500;
   z-index: 1;
-  text-align:center;
-  width:80%;
+  text-align: center;
+  width: 80%;
 `;
 const Button = styled.button`
-  font-size:12px;
-  text-align:center;
+  font-size: 12px;
+  text-align: center;
   border: none;
   border-radius: 4px;
   padding: 8px 16px;
@@ -158,9 +148,9 @@ const Container = styled.a`
     font-size: 40px;
     justify-content: space-between;
   }
-  &:hover{
-    ${DropDownDiv}{
-      display:flex;
+  &:hover {
+    ${DropDownDiv} {
+      display: flex;
     }
   }
 `;

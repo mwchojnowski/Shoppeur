@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { BiSearch } from "react-icons/bi";
 import Dropdown from "./Dropdown";
 import { AllProducts } from "../../data/Category";
+
 export default function SearchBar() {
   const [search, setSearch] = useState("");
   const [focused, setFocused] = useState(false);
@@ -27,7 +28,7 @@ export default function SearchBar() {
         placeholder="Search"
         value={search}
         onChange={(text) => onTyping(text.target.value)}
-        onBlur={() => setFocused(false)}
+        onBlur={() => setTimeout(() => setFocused(false), 100)}
         onFocus={() => setFocused(true)}
       />
       <Button>
@@ -48,9 +49,6 @@ const Wrapper = styled.div`
   position: relative;
   @media ${(props) => props.theme.mobileS} {
     margin-right: 12px;
-  }
-  @media ${(props) => props.theme.tablet} {
-    display: flex;
   }
 `;
 

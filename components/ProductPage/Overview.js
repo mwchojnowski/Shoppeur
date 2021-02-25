@@ -107,14 +107,14 @@ const InfoContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   @media (max-width: 800px) {
     flex-direction: column;
   }
 `;
 
 const Column = styled.div`
-  width: 50%;
+  width: 47%;
   height: 100%;
   @media (max-width: 800px) {
     width: 100%;
@@ -141,7 +141,7 @@ const MiniText = styled.p`
   line-height: 20px;
   color: #545658;
   font-size: 14px;
-  width: 80%;
+  width: 90%;
   margin-bottom: 15px;
 `;
 

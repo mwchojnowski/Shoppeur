@@ -53,9 +53,11 @@ const MenuContainer = Styled.div`
   overflow-x: hidden;
   transition: 0.5s;
   /* padding-top: 60px; */
+
 `;
 
 const Close = Styled.a`
+
 `;
 
 const Overlay = Styled.div`

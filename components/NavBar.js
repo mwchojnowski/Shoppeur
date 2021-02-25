@@ -65,19 +65,14 @@ export default function Navbar() {
         </MenuIcon>
         <Link href="/" passHref>
           <LogoTag>
-            <SmallLogo src={"/Overstock_Icon.svg"} />
-            <Logo src={"/Overstock_Logo.svg"} />
+            <SmallLogo src={"/Logo.png"} />
+            <Logo src={"/LogoAndText.png"} />
           </LogoTag>
         </Link>
         <SearchBar />
         <Options>
-          <NavOption type="Try" isTablet={isTablet} url={"/checkout"} />
-          <NavOption
-            type="bell"
-            isTablet={isTablet}
-            isMobile={isMobile}
-            url={"/checkout"}
-          />
+          <NavOption type="Try" isTablet={isTablet} />
+          <NavOption type="bell" isTablet={isTablet} isMobile={isMobile} />
           <NavOption
             type="cart"
             isTablet={isTablet}

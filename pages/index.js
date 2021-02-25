@@ -73,7 +73,7 @@ export default function home() {
           data={product1}
         />
         <JumboSaleDisplay
-          img="https://ak1.ostkcdn.com/img/mxc/20200201-Living-Desktop-BKG.jpg"
+          img="https://i.ibb.co/tHnsvfM/Couch.jpg"
           url="/category?type=Decor"
           title="Home decor"
           text="Limited time deals"

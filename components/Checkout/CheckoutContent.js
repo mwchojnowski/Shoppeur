@@ -4,10 +4,12 @@ import { BsLock } from "react-icons/bs";
 import CheckoutForm from "./CheckoutForm";
 import CartItem from "./CartItem";
 import swal from "sweetalert";
+import { useRouter } from "next/router";
 
 export default function CheckoutContent() {
   const [TotalPrice, updateTotalPrice] = useState(0);
-  const [Cart, setCart] = useState([]);
+  const [Cart, setCart] = useState([0]);
+  const router = useRouter();
 
   useEffect(() => {
     let localCart = JSON.parse(localStorage.getItem("Cart")) || [];
@@ -97,9 +99,15 @@ export default function CheckoutContent() {
                   <Large>Total:</Large>
                   <Large>${(TotalPrice * 0.1 + TotalPrice).toFixed(2)}</Large>
                 </Row>
-                <Button form="my-form" type="submit">
-                  <BsLock /> <P>Submit Order</P>
-                </Button>
+                {Cart.length > 0 ? (
+                  <Button form="my-form" type="submit">
+                    <BsLock /> <P>Submit Order</P>
+                  </Button>
+                ) : (
+                  <Button Empty onClick={() => router.push("/")}>
+                    <P>Continue Shopping</P>
+                  </Button>
+                )}
               </Bottom>
             </Checkout>
           </Wrap>
@@ -124,10 +132,10 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex-direction: row;
-  @media (max-width: 1200px) {
-    width: 100%;
-    flex-direction: column;
+  flex-direction: column;
+  padding: 0 24px;
+  @media ${(props) => props.theme.tablet} {
+    flex-direction: row;
   }
 `;
 
@@ -149,20 +157,20 @@ const Cart_Container = styled.div`
 `;
 
 const Col1 = styled.div`
-  width: 60%;
-  @media (max-width: 1200px) {
-    width: 100%;
+  width: 100%;
+  @media ${(props) => props.theme.tablet} {
+    width: 60%;
   }
 `;
 
 const Col2 = styled.div`
-  width: 40%;
-  height: 100%;
+  width: 100%;
   display: flex;
-  @media (max-width: 1200px) {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  justify-content: center;
+  margin-bottom: 100px;
+  @media ${(props) => props.theme.tablet} {
+    width: 40%;
+    height: 100%;
   }
 `;
 
@@ -172,11 +180,8 @@ const Wrap = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   border: 1px solid #e7e8ea;
-  margin-left: 40px;
-  @media (max-width: 1200px) {
-    width: 100%;
-    height: 100%;
-    margin-right: 25px;
+  @media ${(props) => props.theme.tablet} {
+    margin-left: 40px;
   }
 `;
 
@@ -230,7 +235,7 @@ const Red = styled.div`
 
 const Button = styled.button`
   width: 100%;
-  background-color: #27865f;
+  background-color: ${(props) => (props.Empty ? "#0272a2" : "#27865f")};
   color: #fff;
   font-size: 18px;
   border-radius: 4px;
@@ -244,6 +249,9 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  &:hover {
+    background-color: ${(props) => (props.Empty ? "#026089" : "#227553")};
+  }
 `;
 const Large = styled.h1`
   font-size: 22px;
