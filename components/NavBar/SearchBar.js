@@ -85,5 +85,4 @@ const Button = styled.button`
   @media ${(props) => props.theme.mobileS} {
     display: flex;
   }
-  /* outline: 2px solid black; */
 `;

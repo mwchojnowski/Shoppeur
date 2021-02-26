@@ -138,7 +138,6 @@ const Container = styled.a`
   cursor: pointer;
   height: 34px;
   font-size: 25px;
-  /* display: ${(props) => (props.hide ? "none" : "flex")}; */
   display: ${(props) =>
     props.type === "account" || props.type === "Try" ? "none" : "flex"};
   text-decoration: none;
@@ -162,7 +161,6 @@ const Title = styled.div`
   display: inline-block;
   box-sizing: border-box;
   text-align: center;
-  /* display: ${(props) => (props.hide ? "none" : "flex")}; */
   display: ${(props) =>
     props.type === "cart" || props.type === "bell" ? "none" : "flex"};
   @media ${(props) => props.theme.mobileXL} {
@@ -172,7 +170,6 @@ const Title = styled.div`
 
 const CartIcon = styled.div`
   position: relative;
-  /* height: 100%; */
   width: 100%;
   font-size: 25px;
   height: 34px;

@@ -24,8 +24,8 @@ const Footer = () => {
             </InnerDiv1>
             <InnerDiv2>
               <H1>Trusted Merchant®</H1>
-              <H1>O is the One®</H1>
-              <H1>O’®</H1>
+              <H1>Shoppeur is the One®</H1>
+              <H1>Shoppeur’®</H1>
               <H1>Presa®</H1>
             </InnerDiv2>
           </Col2>

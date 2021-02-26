@@ -26,19 +26,16 @@ export default function NavCategories(props) {
 }
 const Wrapper = Styled.div`
  width: 100vw;
-    /* display: none; */
     position: absolute;
     top: 100%;
     justify-content: center;
     background-color:white;
-    /* background: green; */
     box-sizing: border-box;
     height: 34px;
     padding-bottom: 0;
     border-top: 1px solid #dadcdf;
     border-bottom: 1px solid #dadcdf;
     display: none;
-    /* margin-top: 10px; */
     @media ${(props) => props.theme.tabletL} {
         display: flex;
 }

@@ -37,7 +37,6 @@ const Wrapper = Styled.div`
   z-index: 3;
   top: 0;
   left: 0;
-  /* background-color: white; */
   overflow-x: hidden;
   transition: 0.2s;
   padding-top: 100px;
@@ -67,7 +66,6 @@ const MenuContainer = Styled.div`
   background-color: white;
   overflow-x: hidden;
   transition: 0.2s;
-  /* padding-top: 60px; */
 
 `;
 
@@ -108,7 +106,6 @@ const Button = Styled.button`
     transform: translateX(-1px);
     color: white;
     font-size: 30px;
-    /* outline: 2px solid black; */
 `;
 
 const TitleRow = Styled.div`
