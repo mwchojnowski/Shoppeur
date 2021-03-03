@@ -127,16 +127,7 @@ const Description__Title = styled.div`
   font-weight: 700;
   margin-bottom: 20px;
 `;
-
 const Description = styled.div``;
-
-const MiniTitle = styled.h3`
-  color: #545658;
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 10px;
-`;
-
 const MiniText = styled.p`
   line-height: 20px;
   color: #545658;
@@ -144,17 +135,6 @@ const MiniText = styled.p`
   width: 90%;
   margin-bottom: 15px;
 `;
-
-const UList = styled.ul`
-  margin-left: 20px;
-`;
-
-const UItem = styled.li`
-  line-height: 20px;
-  color: #545658;
-  font-size: 14px;
-`;
-
 const Specifications__Title = styled.div`
   color: #2f3337;
   font-size: 16px;

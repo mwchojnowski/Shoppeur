@@ -3,16 +3,11 @@ import Styled from "styled-components";
 
 export default function NavCategories(props) {
   let categories = [
-    { name: "Furniture" },
     { name: "Rugs" },
     { name: "Decor" },
     { name: "Bed & Bath" },
     { name: "Home Improvement" },
     { name: "Kitchen" },
-    { name: "Outdoor" },
-    { name: "Jewelry" },
-    { name: "Apparel" },
-    { name: "Kids & Baby" },
   ];
   return (
     <Wrapper>
@@ -63,8 +58,6 @@ const NavItem = Styled.a`
     cursor: pointer;
     :hover {
         border-bottom: 2px solid #2f3337;
-    /* padding: 9px 5px 8px; */
-    /* width: 100%; */
     height: auto;
     }
 `;
@@ -99,5 +92,4 @@ const Button = Styled.button`
         color: white;
 
 }
-    /* outline: 2px solid black; */
 `;

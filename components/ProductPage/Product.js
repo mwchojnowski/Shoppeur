@@ -122,7 +122,6 @@ const Wrapper = styled.div`
     padding-top: 150px;
   }
 `;
-
 const Container = styled.div`
   width: 100%;
   height: auto;
@@ -136,7 +135,6 @@ const Container = styled.div`
     align-items: flex-start;
   }
 `;
-
 const Gallery = styled.div`
   width: 100%;
   margin-bottom: 50px;
@@ -148,7 +146,6 @@ const Gallery = styled.div`
     width: 60%;
   }
 `;
-
 const Details = styled.div`
   width: 100%;
   @media ${(props) => props.theme.tablet} {
@@ -158,7 +155,6 @@ const Details = styled.div`
     width: 35%;
   }
 `;
-
 const Product__Name = styled.h1`
   color: #2f3337;
   font-size: 24px;
@@ -166,7 +162,6 @@ const Product__Name = styled.h1`
   line-height: 28px;
   margin-bottom: 20px;
 `;
-
 const Product__Price = styled.h1`
   color: #2f3337;
   font-size: 28px;
@@ -174,11 +169,9 @@ const Product__Price = styled.h1`
   line-height: 36px;
   margin-bottom: 25px;
 `;
-
 const Size = styled.div`
   margin-bottom: 25px;
 `;
-
 const SubTitle = styled.h1`
   color: #545658;
   font-size: 14px;
@@ -228,13 +221,6 @@ const Ratings = styled.div`
 const Color = styled.div`
   margin-bottom: 25px;
 `;
-
-const Color__Title = styled.h1`
-  color: #545658;
-  font-size: 14px;
-  margin-bottom: 10px;
-`;
-
 const Select = styled.select`
   align-items: center;
   background-color: #fff;
@@ -276,18 +262,10 @@ const Select = styled.select`
   }
   /////////////////////////////////////////////End Arrow
 `;
-
 const Option = styled.option``;
-
 const Quantity = styled.div`
   margin-bottom: 25px;
 `;
-const Quantity__Title = styled.h1`
-  color: #545658;
-  font-size: 14px;
-  margin-bottom: 10px;
-`;
-
 const AddToCart = styled.button`
   color: white;
   font-size: 16px;

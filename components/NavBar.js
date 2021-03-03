@@ -57,7 +57,6 @@ export default function Navbar() {
 
   return (
     <Wrapper>
-      {/* <NavsWrapper> */}
       <Container>
         <SideMenu isOpen={openMenu} onClose={() => closeMenu()} />
         <MenuIcon onClick={() => setOpenMenu(true)}>
@@ -81,8 +80,6 @@ export default function Navbar() {
           />
         </Options>
       </Container>
-      {/* <NavCategories /> */}
-      {/* </NavsWrapper> */}
     </Wrapper>
   );
 }
@@ -95,25 +92,12 @@ const Wrapper = styled.div`
   position: fixed;
   font-family: "Helvetica", "Arial", sans-serif;
   background-color: white;
-  /* background: green; */
   max-width: 1680px;
   z-index: 10;
-  /* margin: 0 auto; */
   @media ${(props) => props.theme.tabletL} {
     height: unset;
   }
 `;
-
-const NavsWrapper = styled.div`
-  width: 100%;
-  justify-content: space-between;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 13px;
-  margin-right: 13px;
-`;
-
 const Container = styled.div`
   width: 100%;
   margin-left: 13px;

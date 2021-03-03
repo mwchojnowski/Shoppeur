@@ -39,7 +39,7 @@ export default function NavOption({ type, isTablet, isMobile, url }) {
           ? "Account"
           : type === "bell"
           ? "Notifications"
-          : "Club O"}
+          : "Club S"}
       </Title>
       <Connect></Connect>
       {!(type === "cart") ? (
